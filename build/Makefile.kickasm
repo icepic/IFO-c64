@@ -1,7 +1,7 @@
 
 MYPROG?=ifo
 
-SUFFIXES: .asm .prg
+#SUFFIXES: .prg
 
 $(MYPROG).prg: $(MYPROG).asm
 	java -jar ~/Downloads/KickAssembler/KickAss.jar $< -o $@ -vicesymbols -log /dev/null -showmem
