@@ -1,0 +1,10 @@
+
+MYPROG?=ifo
+
+SUFFIXES: .asm .prg
+
+$(MYPROG).prg: $(MYPROG).asm
+	java -jar ~/Downloads/KickAssembler/KickAss.jar $< -o $@ -vicesymbols -log /dev/null -showmem
+
+run: $(MYPROG).prg
+	~/Applications/VICE/x64sc.app/Contents/MacOS/x64sc $(MYPROG).prg
