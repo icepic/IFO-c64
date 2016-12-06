@@ -1,1 +1,17 @@
-...
+Game design
+
+32x32 tile map
+255 tiles per map (max)
+gfx set per map possible
+gfx/data set downloaded and cached at the start of each map
+Tile contents,
+ gfx ref (implied from tile number)
+ height (one of 16?)    \
+ material (one of 16?)  / single byte (material implies cover)
+ directionality for cover (4 bits for N/S/E/W)
+
+
+Client side
+
+
+Server side
