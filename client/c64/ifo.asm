@@ -69,9 +69,10 @@ start:
 main:	
 	jsr	paintmap
 	jsr	sleep
-	inc	coordy
-	lda	coordy
-	and	#31
+	ldx	coordy
+	inx
+	txa
+	and	#15
 	sta	coordy
 	jmp	main
 	
@@ -86,6 +87,19 @@ s2:	cpx $d012
 	rts
 
 paintmap:
+
+// restore map painting code to defaults, otherwise
+// the self-modifying code will race through memory
+
+	lda #<$1000
+	sta paint + 1
+	lda #>$1000
+	sta paint + 2
+	lda #<($0480+41)
+	sta pdest + 1
+	lda #>($0480+41)
+	sta pdest + 2
+	
 	ldy #0
 	lda coordy
 	beq nomul
@@ -95,21 +109,21 @@ nomul:	sta $fc
 	add16 $fc : coordx
 	add16 paint + 1 : $fc
 
-	ldy #16
+	ldy #15
 ploop:	ldx #16
 
 paint:
 	lda $1000,x
 pdest:	
-	sta [$0480+40],x
+	sta [$0480+41],x
 	dex
-	bne paint
+	bpl paint
 
-	add16 paint+1 : 32
-	add16 pdest+1 : 40
+	add16 paint+1 : #32
+	add16 pdest+1 : #40
 
 	dey
-	bne	ploop
+	bpl	ploop
 
 	rts
 	
