@@ -74,6 +74,11 @@ main:
 	txa
 	and	#15
 	sta	coordy
+
+readkey:
+	jsr	$F142   // returns 0 if no key
+	beq	readkey //  pressed since last time
+	
 	jmp	main
 	
 	rts
