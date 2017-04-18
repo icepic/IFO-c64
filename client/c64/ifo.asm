@@ -78,6 +78,8 @@ main:
 readkey:
 	jsr	$F142   // returns 0 if no key
 	beq	readkey //  pressed since last time
+
+	sta	$0400 // to see what bytes come out
 	
 	jmp	main
 	
